@@ -1,43 +1,23 @@
-import java.util.*;
+import java.util.Arrays;
 
-public class TrainConsistUC16 {
+public class TrainConsistUC17 {
 
     public static void main(String[] args) {
 
-        int[] capacities = {72, 56, 24, 70, 60};
+        String[] bogieNames = {
+                "Sleeper",
+                "AC Chair",
+                "First Class",
+                "General",
+                "Luxury"
+        };
 
         System.out.println("Before Sorting:");
-        printArray(capacities);
+        System.out.println(Arrays.toString(bogieNames));
 
-        bubbleSort(capacities);
+        Arrays.sort(bogieNames);
 
         System.out.println("After Sorting:");
-        printArray(capacities);
-    }
-
-    static void bubbleSort(int[] arr) {
-
-        int n = arr.length;
-
-        for (int i = 0; i < n - 1; i++) {
-
-            for (int j = 0; j < n - i - 1; j++) {
-
-                if (arr[j] > arr[j + 1]) {
-
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-
-                }
-            }
-        }
-    }
-
-    static void printArray(int[] arr) {
-        for (int num : arr) {
-            System.out.print(num + " ");
-        }
-        System.out.println();
+        System.out.println(Arrays.toString(bogieNames));
     }
 }
