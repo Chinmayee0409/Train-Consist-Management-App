@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Bogie {
     private String name;
@@ -35,21 +35,35 @@ public class TrainConsistManagementApp {
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 54));
         bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 68));   // duplicate type for grouping demo
-        bogies.add(new Bogie("Cylindrical Goods", 100));
-        bogies.add(new Bogie("Rectangular Goods", 120));
 
-        // Step 2: Group bogies by type using Collectors.groupingBy
-        Map<String, List<Bogie>> groupedBogies = bogies.stream()
-                .collect(Collectors.groupingBy(Bogie::getName));
+        // Step 2: Display bogies
+        System.out.println("\nBogies in Train:");
+        for (Bogie bogie : bogies) {
+            System.out.println(bogie);
+        }
 
-        // Step 3: Display grouped bogies
-        System.out.println("\nGrouped Bogies by Type:");
-        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
-            System.out.println("Type: " + entry.getKey());
-            for (Bogie bogie : entry.getValue()) {
-                System.out.println("  " + bogie);
-            }
+        // Step 3: Regex Validation for Train ID and Cargo Code
+        String trainId = "TRN-1234";      // Example valid input
+        String cargoCode = "PET-AB";      // Example valid input
+
+        // Define regex patterns
+        Pattern trainIdPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoCodePattern = Pattern.compile("PET-[A-Z]{2}");
+
+        // Validate Train ID
+        Matcher trainMatcher = trainIdPattern.matcher(trainId);
+        if (trainMatcher.matches()) {
+            System.out.println("\nTrain ID " + trainId + " is VALID.");
+        } else {
+            System.out.println("\nTrain ID " + trainId + " is INVALID.");
+        }
+
+        // Validate Cargo Code
+        Matcher cargoMatcher = cargoCodePattern.matcher(cargoCode);
+        if (cargoMatcher.matches()) {
+            System.out.println("Cargo Code " + cargoCode + " is VALID.");
+        } else {
+            System.out.println("Cargo Code " + cargoCode + " is INVALID.");
         }
     }
 }
