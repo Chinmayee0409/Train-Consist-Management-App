@@ -1,8 +1,12 @@
 import java.util.Arrays;
 
-public class TrainConsistUC19 {
+public class TrainConsistUC20 {
 
-    public static boolean binarySearch(String[] bogieIds, String searchKey) {
+    public static boolean searchBogie(String[] bogieIds, String searchKey) {
+
+        if (bogieIds == null || bogieIds.length == 0) {
+            throw new IllegalStateException("Cannot search. No bogies available in train consist.");
+        }
 
         Arrays.sort(bogieIds);
 
@@ -34,19 +38,22 @@ public class TrainConsistUC19 {
         String[] bogieIds = {
                 "BG101",
                 "BG205",
-                "BG309",
-                "BG412",
-                "BG550"
+                "BG309"
         };
 
-        String searchKey = "BG309";
+        String searchKey = "BG205";
 
-        boolean found = binarySearch(bogieIds, searchKey);
+        try {
+            boolean found = searchBogie(bogieIds, searchKey);
 
-        if (found) {
-            System.out.println("Bogie Found: " + searchKey);
-        } else {
-            System.out.println("Bogie Not Found: " + searchKey);
+            if (found) {
+                System.out.println("Bogie Found: " + searchKey);
+            } else {
+                System.out.println("Bogie Not Found: " + searchKey);
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
