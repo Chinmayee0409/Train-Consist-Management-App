@@ -1,31 +1,33 @@
 import java.util.*;
 import java.util.stream.*;
 
-class Bogie {
+class GoodsBogie {
     String type;
-    int capacity;
+    String cargo;
 
-    Bogie(String type, int capacity) {
+    GoodsBogie(String type, String cargo) {
         this.type = type;
-        this.capacity = capacity;
+        this.cargo = cargo;
     }
 }
 
-public class TrainConsistUC10 {
+public class TrainConsistUC12 {
 
     public static void main(String[] args) {
 
-        List<Bogie> bogies = new ArrayList<>();
+        List<GoodsBogie> bogies = new ArrayList<>();
 
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
-        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        bogies.add(new GoodsBogie("Rectangular", "Coal"));
+        bogies.add(new GoodsBogie("Rectangular", "Grain"));
+        bogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
 
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+        boolean isSafe = bogies.stream()
+                .allMatch(b ->
+                        !b.type.equalsIgnoreCase("Cylindrical") ||
+                                b.cargo.equalsIgnoreCase("Petroleum")
+                );
 
-        System.out.println("Total Seating Capacity: " + totalSeats);
+        System.out.println("Train Safety Compliance: " + isSafe);
     }
 }
