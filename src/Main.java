@@ -1,50 +1,43 @@
 import java.util.*;
 
-class CargoSafetyException extends RuntimeException {
-    CargoSafetyException(String message) {
-        super(message);
-    }
-}
-
-class GoodsBogie {
-    String shape;
-    String cargo;
-
-    GoodsBogie(String shape) {
-        this.shape = shape;
-    }
-
-    void assignCargo(String cargo) {
-        try {
-            if (shape.equalsIgnoreCase("Rectangular") &&
-                    cargo.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException(
-                        "Petroleum cannot be assigned to Rectangular Bogie");
-            }
-
-            this.cargo = cargo;
-            System.out.println("Cargo Assigned: " + shape + " -> " + cargo);
-
-        } catch (CargoSafetyException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("Cargo assignment checked.\n");
-        }
-    }
-}
-
-public class TrainConsistUC15 {
+public class TrainConsistUC16 {
 
     public static void main(String[] args) {
 
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        b1.assignCargo("Petroleum");
-        b2.assignCargo("Petroleum");
-        b2.assignCargo("Coal");
+        System.out.println("Before Sorting:");
+        printArray(capacities);
 
-        System.out.println("Program Continues Safely...");
+        bubbleSort(capacities);
+
+        System.out.println("After Sorting:");
+        printArray(capacities);
+    }
+
+    static void bubbleSort(int[] arr) {
+
+        int n = arr.length;
+
+        for (int i = 0; i < n - 1; i++) {
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (arr[j] > arr[j + 1]) {
+
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+
+                }
+            }
+        }
+    }
+
+    static void printArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
     }
 }
