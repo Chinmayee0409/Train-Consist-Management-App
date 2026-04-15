@@ -1,40 +1,50 @@
 import java.util.*;
 
-class InvalidCapacityException extends Exception {
-    InvalidCapacityException(String message) {
+class CargoSafetyException extends RuntimeException {
+    CargoSafetyException(String message) {
         super(message);
     }
 }
 
-class PassengerBogie {
-    String type;
-    int capacity;
+class GoodsBogie {
+    String shape;
+    String cargo;
 
-    PassengerBogie(String type, int capacity) throws InvalidCapacityException {
-        if (capacity <= 0) {
-            throw new InvalidCapacityException("Capacity must be greater than zero");
+    GoodsBogie(String shape) {
+        this.shape = shape;
+    }
+
+    void assignCargo(String cargo) {
+        try {
+            if (shape.equalsIgnoreCase("Rectangular") &&
+                    cargo.equalsIgnoreCase("Petroleum")) {
+                throw new CargoSafetyException(
+                        "Petroleum cannot be assigned to Rectangular Bogie");
+            }
+
+            this.cargo = cargo;
+            System.out.println("Cargo Assigned: " + shape + " -> " + cargo);
+
+        } catch (CargoSafetyException e) {
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+            System.out.println("Cargo assignment checked.\n");
         }
-        this.type = type;
-        this.capacity = capacity;
     }
 }
 
-public class TrainConsistUC14 {
+public class TrainConsistUC15 {
 
     public static void main(String[] args) {
 
-        try {
+        GoodsBogie b1 = new GoodsBogie("Cylindrical");
+        GoodsBogie b2 = new GoodsBogie("Rectangular");
 
-            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
-            PassengerBogie b2 = new PassengerBogie("AC Chair", 60);
-            PassengerBogie b3 = new PassengerBogie("First Class", -10);
+        b1.assignCargo("Petroleum");
+        b2.assignCargo("Petroleum");
+        b2.assignCargo("Coal");
 
-            System.out.println("Bogies Created Successfully");
-
-        } catch (InvalidCapacityException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        System.out.println("Program Continues...");
+        System.out.println("Program Continues Safely...");
     }
 }
