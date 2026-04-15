@@ -1,23 +1,34 @@
-import java.util.Arrays;
+public class TrainConsistUC18 {
 
-public class TrainConsistUC17 {
+    public static boolean searchBogie(String[] bogieIds, String searchKey) {
+
+        for (int i = 0; i < bogieIds.length; i++) {
+            if (bogieIds[i].equals(searchKey)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public static void main(String[] args) {
 
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
+        String[] bogieIds = {
+                "BG101",
+                "BG205",
+                "BG309",
+                "BG412",
+                "BG550"
         };
 
-        System.out.println("Before Sorting:");
-        System.out.println(Arrays.toString(bogieNames));
+        String searchKey = "BG309";
 
-        Arrays.sort(bogieNames);
+        boolean found = searchBogie(bogieIds, searchKey);
 
-        System.out.println("After Sorting:");
-        System.out.println(Arrays.toString(bogieNames));
+        if (found) {
+            System.out.println("Bogie Found: " + searchKey);
+        } else {
+            System.out.println("Bogie Not Found: " + searchKey);
+        }
     }
 }
