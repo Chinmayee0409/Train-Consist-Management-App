@@ -1,10 +1,28 @@
-public class TrainConsistUC18 {
+import java.util.Arrays;
 
-    public static boolean searchBogie(String[] bogieIds, String searchKey) {
+public class TrainConsistUC19 {
 
-        for (int i = 0; i < bogieIds.length; i++) {
-            if (bogieIds[i].equals(searchKey)) {
+    public static boolean binarySearch(String[] bogieIds, String searchKey) {
+
+        Arrays.sort(bogieIds);
+
+        int low = 0;
+        int high = bogieIds.length - 1;
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            int result = searchKey.compareTo(bogieIds[mid]);
+
+            if (result == 0) {
                 return true;
+            }
+            else if (result < 0) {
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
             }
         }
 
@@ -23,7 +41,7 @@ public class TrainConsistUC18 {
 
         String searchKey = "BG309";
 
-        boolean found = searchBogie(bogieIds, searchKey);
+        boolean found = binarySearch(bogieIds, searchKey);
 
         if (found) {
             System.out.println("Bogie Found: " + searchKey);
